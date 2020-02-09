@@ -306,7 +306,7 @@ class Plug extends Device {
     let data;
     try {
       data = await this.sendCommand(
-        '{"emeter":{"get_realtime":{}},"schedule":{"get_next_action":{}},"system":{"get_sysinfo":{}},"cnCloud":{"get_info":{}}}',
+        '{"system":{"get_sysinfo":{}},"cnCloud":{"get_info":{}}}',
         this.childId,
         sendOptions
       );
@@ -324,15 +324,17 @@ class Plug extends Device {
     }
     this.sysInfo = data.system.get_sysinfo;
     this.cloud.info = data.cnCloud.get_info;
-    if (Object.prototype.hasOwnProperty.call(data.emeter, 'get_realtime')) {
+    /* 
+if (Object.prototype.hasOwnProperty.call(data.emeter, 'get_realtime')) {
       this.emeter.realtime = data.emeter.get_realtime;
     }
     this.schedule.nextAction = data.schedule.get_next_action;
+*/
     return {
       sysInfo: this.sysInfo,
       cloud: { info: this.cloud.info },
-      emeter: { realtime: this.emeter.realtime },
-      schedule: { nextAction: this.schedule.nextAction },
+  /*    emeter: { realtime: this.emeter.realtime },
+      schedule: { nextAction: this.schedule.nextAction }, */
     };
   }
 
